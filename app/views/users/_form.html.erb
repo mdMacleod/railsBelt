@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body style="background-color: black">
+        <div class="container h-100" style=" background-color: black" >
+
+        <div class="container signup" class="h-100 row align-items-center" style="background-color: white;">
+                <div class="h-100 row align-items-center">
+                    <div class="col">
+
+
+                        <% if @user.errors.any? %>
+                            <div id="error_explanation">
+                                <h2><%= pluralize(@user.errors.count, "error") %> prohibited this article from being saved:</h2>
+ 
+                            <ul>
+                                <% @user.errors.full_messages.each do |msg| %>
+                                    <li><%= msg %></li>
+                            <% end %>
+                            </ul>
+                        </div>
+                    <% end %>
+
+                        <%= form_for(user, url: users_path) do |form| %>
+                            <h2 class="form-title" >Create account</h2>
+                            <div class="field form-group">
+                                <%= form.label 'First Name' %><br>
+                                <%= form.text_field :first_name %><br>
+                                <div class='error'><%= show_errors(@user, :first_name) %></div>
+                            </div>
+
+                            <div class="field form-group">
+                                <%= form.label 'Last Name' %><br>
+                                <%= form.text_field :last_name %><br>
+                                <div class='error'><%= show_errors(@user, :last_name) %></div>
+                            </div>
+                            <div class="field form-group">
+                                <%= form.label 'email' %><br>
+                                <%= form.text_field :email %><br>
+                                <div class='error'><%= show_errors(@user, :email) %></div>
+                            </div>
+
+                            <% if form.object.new_record? %>
+                                <div class="field form-group">
+                                    <%= form.label 'Password' %><br>
+                                    <%= form.password_field :password %><br>
+                                    <div class='error'><%= show_errors(@user, :password) %></div>
+                                </div>
+                                <div class="field form-group">
+                                    <%= form.label 'password_confirmation' %><br>
+                                    <%= form.password_field :password_confirmation %><br>
+                                    <div class='error'><%= show_errors(@user, :password_confirmation) %></div>
+                                </div>
+                            <% end %>
+
+                            <div class="form-group">
+                                <%= form.submit (form.object.new_record? ? 'create' : 'update')  %>
+                        <%end%>
+                            </div>
+            
+                        <p class="loginhere">
+                            Already have an account? <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Sign In
+                            </button>
+                        </p>
+                    </div>
+            </div>
+        </section>
+        
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Log in</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3 style="color: red;"><%= flash[:error] %></h3>
+                    <%= form_tag '/login' do %>
+                        <div class="form">
+                            <%= label_tag :email %><br>
+                            <%= text_field_tag :email %><br>
+                            
+                        </div>
+                        <div class="form">
+                            <%= label_tag :password %><br>
+                            <%= password_field_tag :password %><br>
+                            
+                        </div>
+                        
+
+                        
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <%= submit_tag "Login"%>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
